@@ -2,36 +2,36 @@ package com.csv.csvreader.test;
 
 public class TestDTO {
 
-    private String id;
-    private String courseId;
-    private String weight;
+    private Integer id;
+    private Integer courseId;
+    private Integer weight;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
-    public String getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
 
-    public TestDTO(String id, String courseId, String weight) {
+    public TestDTO(Integer id, Integer courseId, Integer weight) {
         this.id = id;
         this.courseId = courseId;
         this.weight = weight;

@@ -2,14 +2,14 @@ package com.csv.csvreader.student;
 
 public class StudentDTO {
 
-    private String id;
+    private Integer id;
     private String name;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -21,7 +21,7 @@ public class StudentDTO {
         this.name = name;
     }
 
-    public StudentDTO(String id, String name) {
+    public StudentDTO(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

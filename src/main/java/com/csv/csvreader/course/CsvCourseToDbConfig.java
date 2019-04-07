@@ -34,9 +34,10 @@ public class CsvCourseToDbConfig {
     @Autowired
     public DataSource dataSource;
 
-    @Bean(name="CoursecsvCourseReader")
+    @Bean(name="csvCourseReader")
     public FlatFileItemReader<CourseDTO> csvCourseReader(){
         FlatFileItemReader<CourseDTO> reader = new FlatFileItemReader<CourseDTO>();
+        reader.setLinesToSkip(1);
         reader.setResource(new ClassPathResource("courses.csv"));
         reader.setLineMapper(new DefaultLineMapper<CourseDTO>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
@@ -49,12 +50,12 @@ public class CsvCourseToDbConfig {
         return reader;
     }
 
-    @Bean(name="CoursecsvCourseProcessor")
+    @Bean(name="csvCourseProcessor")
     ItemProcessor<CourseDTO, CourseDTO> csvCourseProcessor() {
         return new CourseProcessor();
     }
 
-    @Bean(name="CoursecsvCourseWriter")
+    @Bean(name="csvCourseWriter")
     public JdbcBatchItemWriter<CourseDTO> csvCourseWriter() {
         JdbcBatchItemWriter<CourseDTO> csvCourseWriter = new JdbcBatchItemWriter<CourseDTO>();
         csvCourseWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<CourseDTO>());
@@ -66,7 +67,7 @@ public class CsvCourseToDbConfig {
     // end reader, writer, and processor
 
     // begin job info
-    @Bean(name="CoursecsvFileToDatabaseStep")
+    @Bean(name="csvCourseFileToDatabaseStep")
     public Step csvFileToDatabaseStep() {
         return stepBuilderFactory.get("csvFileToDatabaseStep")
                 .<CourseDTO, CourseDTO>chunk(1)
@@ -76,7 +77,7 @@ public class CsvCourseToDbConfig {
                 .build();
     }
 
-    @Bean(name="CoursecsvFileToDatabaseJob")
+    @Bean(name="csvCourseFileToDatabaseJob")
     Job csvFileToDatabaseJob(CourseJobNotificationListener listener) {
         return jobBuilderFactory.get("csvFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())

@@ -34,7 +34,7 @@ public class TestJobNotificationListener extends JobExecutionListenerSupport {
             List<TestDTO> results = jdbcTemplate.query("SELECT id, course_id , weight FROM tests", new RowMapper<TestDTO>() {
                 @Override
                 public TestDTO mapRow(ResultSet rs, int row) throws SQLException {
-                    return new TestDTO(rs.getString(1), rs.getString(2), rs.getString(3));
+                    return new TestDTO(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                 }
             });
 

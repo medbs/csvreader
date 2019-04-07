@@ -10,23 +10,23 @@ public class Mark implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String testId;
-    private String studentId;
+    private Integer testId;
+    private Integer studentId;
     private String mark;
 
-    public String getTestId() {
+    public Integer getTestId() {
         return testId;
     }
 
-    public void setTestId(String testId) {
+    public void setTestId(Integer testId) {
         this.testId = testId;
     }
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -38,7 +38,7 @@ public class Mark implements Serializable {
         this.mark = mark;
     }
 
-    public Mark(String studentId, String mark) {
+    public Mark(Integer studentId, String mark) {
         this.studentId = studentId;
         this.mark = mark;
     }

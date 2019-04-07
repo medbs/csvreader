@@ -34,9 +34,10 @@ public class CsvTestToDbConfig {
     public DataSource dataSource;
 
 
-    @Bean
+    @Bean(name="csvTestReader")
     public FlatFileItemReader<TestDTO> csvTestReader(){
         FlatFileItemReader<TestDTO> reader = new FlatFileItemReader<TestDTO>();
+        reader.setLinesToSkip(1);
         reader.setResource(new ClassPathResource("tests.csv"));
         reader.setLineMapper(new DefaultLineMapper<TestDTO>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
@@ -49,12 +50,12 @@ public class CsvTestToDbConfig {
         return reader;
     }
 
-    @Bean
+    @Bean(name="csvTestProcessor")
     ItemProcessor<TestDTO, TestDTO> csvTestProcessor() {
         return new TestProcessor();
     }
 
-    @Bean
+    @Bean(name="csvTestWriter")
     public JdbcBatchItemWriter<TestDTO> csvTestWriter() {
         JdbcBatchItemWriter<TestDTO> csvTestWriter = new JdbcBatchItemWriter<TestDTO>();
         csvTestWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<TestDTO>());
@@ -66,7 +67,7 @@ public class CsvTestToDbConfig {
     // end reader, writer, and processor
 
     // begin job info
-    @Bean
+    @Bean(name="csvTestFileToDatabaseStep")
     public Step csvFileToDatabaseStep() {
         return stepBuilderFactory.get("csvFileToDatabaseStep")
                 .<TestDTO, TestDTO>chunk(1)
@@ -76,7 +77,7 @@ public class CsvTestToDbConfig {
                 .build();
     }
 
-    @Bean
+    @Bean(name="csvTestFileToDatabaseJob")
     Job csvFileToDatabaseJob(TestJobNotificationListener listener) {
         return jobBuilderFactory.get("csvFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())

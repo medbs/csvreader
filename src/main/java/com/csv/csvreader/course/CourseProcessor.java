@@ -11,7 +11,7 @@ public class CourseProcessor implements ItemProcessor<CourseDTO, CourseDTO> {
     @Override
     public CourseDTO process(final CourseDTO CourseDTO) throws Exception {
 
-        final String id = CourseDTO.getId();
+        final Integer id = CourseDTO.getId();
         final String name = CourseDTO.getName();
         final String teacher = CourseDTO.getTeacher();
 

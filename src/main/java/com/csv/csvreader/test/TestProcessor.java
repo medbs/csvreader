@@ -11,9 +11,9 @@ public class TestProcessor implements ItemProcessor<TestDTO, TestDTO> {
     @Override
     public TestDTO process(final TestDTO TestDTO) throws Exception {
 
-        final String id = TestDTO.getId();
-        final String courseId = TestDTO.getCourseId();
-        final String weight = TestDTO.getCourseId();
+        final Integer id = TestDTO.getId();
+        final Integer courseId = TestDTO.getCourseId();
+        final Integer weight = TestDTO.getCourseId();
 
         final TestDTO transformedTestDTO = new TestDTO(id, courseId, weight );
 

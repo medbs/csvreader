@@ -35,7 +35,7 @@ public class StudentJobNotificationListener extends JobExecutionListenerSupport 
             List<StudentDTO> results = jdbcTemplate.query("SELECT id, name  FROM students", new RowMapper<StudentDTO>() {
                 @Override
                 public StudentDTO mapRow(ResultSet rs, int row) throws SQLException {
-                    return new StudentDTO(rs.getString(1), rs.getString(2));
+                    return new StudentDTO(rs.getInt(1), rs.getString(2));
                 }
             });
 

@@ -33,9 +33,10 @@ public class CsvMarkToDbConfig {
     @Autowired
     public DataSource dataSource;
 
-    @Bean(name="MarkcsvMarkReader")
+    @Bean(name="csvMarkReader")
     public FlatFileItemReader<MarkDTO> csvMarkReader(){
         FlatFileItemReader<MarkDTO> reader = new FlatFileItemReader<MarkDTO>();
+        reader.setLinesToSkip(1);
         reader.setResource(new ClassPathResource("marks.csv"));
         reader.setLineMapper(new DefaultLineMapper<MarkDTO>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
@@ -48,12 +49,12 @@ public class CsvMarkToDbConfig {
         return reader;
     }
 
-    @Bean(name="MarkcsvMarkProcessor")
+    @Bean(name="csvMarkProcessor")
     ItemProcessor<MarkDTO, MarkDTO> csvMarkProcessor() {
         return new MarkProcessor();
     }
 
-    @Bean(name="MarkcsvMarkWriter")
+    @Bean(name="csvMarkWriter")
     public JdbcBatchItemWriter<MarkDTO> csvMarkWriter() {
         JdbcBatchItemWriter<MarkDTO> csvMarkWriter = new JdbcBatchItemWriter<MarkDTO>();
         csvMarkWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<MarkDTO>());
@@ -65,7 +66,7 @@ public class CsvMarkToDbConfig {
     // end reader, writer, and processor
 
     // begin job info
-    @Bean(name="MarkcsvFileToDatabaseStep")
+    @Bean(name="csvMarkFileToDatabaseStep")
     public Step csvFileToDatabaseStep() {
         return stepBuilderFactory.get("csvFileToDatabaseStep")
                 .<MarkDTO, MarkDTO>chunk(1)
@@ -75,7 +76,7 @@ public class CsvMarkToDbConfig {
                 .build();
     }
 
-    @Bean(name="MarkcsvFileToDatabaseJob")
+    @Bean(name="csvMarkFileToDatabaseJob")
     Job csvFileToDatabaseJob(MarkJobNotificationListener listener) {
         return jobBuilderFactory.get("csvFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())

@@ -35,7 +35,7 @@ public class CourseJobNotificationListener extends JobExecutionListenerSupport {
             List<CourseDTO> results = jdbcTemplate.query("SELECT id, name, teacher FROM courses", new RowMapper<CourseDTO>() {
                 @Override
                 public CourseDTO mapRow(ResultSet rs, int row) throws SQLException {
-                    return new CourseDTO(rs.getString(1), rs.getString(2), rs.getString(3));
+                    return new CourseDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
                 }
             });
 

@@ -1,9 +1,6 @@
 package com.csv.csvreader.test;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -13,35 +10,40 @@ public class Test  implements Serializable {
     @Id
     @GeneratedValue
 
-    private String id;
-    private String courseId;
-    private String weight;
+    private Integer id;
+    private Integer courseId;
+    private Integer weight;
 
-    public String getId() {
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="course_id")
+
+    @ManyToMany(mappedBy = "tests")
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
-    public String getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public Test(String courseId, String weight) {
+    public Test(Integer courseId, Integer weight) {
         this.courseId = courseId;
         this.weight = weight;
     }

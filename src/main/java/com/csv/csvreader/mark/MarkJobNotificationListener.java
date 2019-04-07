@@ -34,7 +34,7 @@ public class MarkJobNotificationListener extends JobExecutionListenerSupport {
             List<MarkDTO> results = jdbcTemplate.query("SELECT test_id, student_id , mark FROM marks", new RowMapper<MarkDTO>() {
                 @Override
                 public MarkDTO mapRow(ResultSet rs, int row) throws SQLException {
-                    return new MarkDTO(rs.getString(1), rs.getString(2), rs.getString(3));
+                    return new MarkDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
                 }
             });
 

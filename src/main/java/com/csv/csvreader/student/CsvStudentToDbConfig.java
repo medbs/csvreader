@@ -34,9 +34,10 @@ public class CsvStudentToDbConfig {
     public DataSource dataSource;
 
 
-    @Bean(name="StudentcsvMarkReader")
+    @Bean(name="csvStudentReader")
     public FlatFileItemReader<StudentDTO> csvMarkReader(){
         FlatFileItemReader<StudentDTO> reader = new FlatFileItemReader<StudentDTO>();
+        reader.setLinesToSkip(1);
         reader.setResource(new ClassPathResource("students.csv"));
         reader.setLineMapper(new DefaultLineMapper<StudentDTO>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
@@ -49,12 +50,12 @@ public class CsvStudentToDbConfig {
         return reader;
     }
 
-    @Bean(name="StudentcsvStudentProcessor")
+    @Bean(name="csvStudentProcessor")
     ItemProcessor<StudentDTO, StudentDTO> csvStudentProcessor() {
         return new StudentProcessor();
     }
 
-    @Bean(name="StudentJdbcBatchItemWriter")
+    @Bean(name="csvStudentWriter")
     public JdbcBatchItemWriter<StudentDTO> csvStudentWriter() {
         JdbcBatchItemWriter<StudentDTO> csvStudentWriter = new JdbcBatchItemWriter<StudentDTO>();
         csvStudentWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<StudentDTO>());
@@ -66,7 +67,7 @@ public class CsvStudentToDbConfig {
     // end reader, writer, and processor
 
     // begin job info
-    @Bean(name="StudentcsvFileToDatabaseStep")
+    @Bean(name="csvStudentFileToDatabaseStep")
     public Step csvFileToDatabaseStep() {
         return stepBuilderFactory.get("csvFileToDatabaseStep")
                 .<StudentDTO, StudentDTO>chunk(1)
@@ -76,7 +77,7 @@ public class CsvStudentToDbConfig {
                 .build();
     }
 
-    @Bean(name="StudentcsvFileToDatabaseJob")
+    @Bean(name="csvStudentFileToDatabaseJob")
     Job csvFileToDatabaseJob(StudentJobNotificationListener listener) {
         return jobBuilderFactory.get("csvFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())

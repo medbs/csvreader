@@ -11,8 +11,8 @@ public class MarkProcessor  implements ItemProcessor<MarkDTO, MarkDTO> {
     @Override
     public MarkDTO process(final MarkDTO MarkDTO) throws Exception {
 
-        final String testId = MarkDTO.getTestId();
-        final String studentId = MarkDTO.getStudentId();
+        final Integer testId = MarkDTO.getTestId();
+        final Integer studentId = MarkDTO.getStudentId();
         final String mark = MarkDTO.getMark();
 
         final MarkDTO transformedMarkDTO = new MarkDTO(testId, studentId, mark);

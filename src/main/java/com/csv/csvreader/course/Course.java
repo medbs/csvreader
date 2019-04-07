@@ -1,10 +1,7 @@
 package com.csv.csvreader.course;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -14,15 +11,18 @@ public class Course implements Serializable {
     @Id
     @GeneratedValue
 
-    private String id;
+    private Integer id;
     private String name;
     private String teacher;
+    @OneToMany(mappedBy = "course",  cascade = CascadeType.ALL)
 
-    public String getId() {
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -4,21 +4,21 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class MarkDTO {
 
-    private String testId;
-    private String studentId;
+    private Integer testId;
+    private Integer studentId;
     private String mark;
 
-    public String getTestId() { return testId;  }
+    public Integer getTestId() { return testId;  }
 
-    public void setTestId(String testId) {
+    public void setTestId(Integer testId) {
         this.testId = testId;
     }
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -34,7 +34,7 @@ public class MarkDTO {
     public MarkDTO() {
     }
 
-    public MarkDTO(String testId, String studentId, String mark) {
+    public MarkDTO(Integer testId, Integer studentId, String mark) {
         this.testId = testId;
         this.studentId = studentId;
         this.mark = mark;

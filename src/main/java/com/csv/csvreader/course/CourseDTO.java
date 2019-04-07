@@ -2,16 +2,16 @@ package com.csv.csvreader.course;
 
 public class CourseDTO extends Course {
 
-    private String id;
+    private Integer id;
     private String name;
     private String teacher;
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class CourseDTO extends Course {
     }
 
 
-    public CourseDTO(String id, String name, String teacher) {
+    public CourseDTO(Integer id, String name, String teacher) {
         this.id = id;
         this.name = name;
         this.teacher = teacher;
