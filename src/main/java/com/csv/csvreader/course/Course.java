@@ -9,13 +9,18 @@ import java.io.Serializable;
 public class Course implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 
     private Integer id;
     private String name;
     private String teacher;
-    @OneToMany(mappedBy = "course",  cascade = CascadeType.ALL)
 
+
+    @OneToMany(
+            mappedBy = "courses",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
 
 
     public Integer getId() {

@@ -16,12 +16,14 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
 
 @EnableBatchProcessing
 @Configuration
+
 public class CsvStudentToDbConfig {
 
     @Autowired

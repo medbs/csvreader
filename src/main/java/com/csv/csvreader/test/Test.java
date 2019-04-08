@@ -1,23 +1,31 @@
 package com.csv.csvreader.test;
 
+import com.csv.csvreader.course.Course;
+import com.csv.csvreader.mark.Mark;
+import com.csv.csvreader.student.Student;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "tests")
-public class Test  implements Serializable {
+public class Test implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 
     private Integer id;
-    private Integer courseId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
+
     private Integer weight;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="course_id")
 
-    @ManyToMany(mappedBy = "tests")
+    @OneToMany(mappedBy = "test")
+    Set<Mark> marks;
 
     public Integer getId() {
         return id;
@@ -27,12 +35,12 @@ public class Test  implements Serializable {
         this.id = id;
     }
 
-    public Integer getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Integer getWeight() {
@@ -43,8 +51,7 @@ public class Test  implements Serializable {
         this.weight = weight;
     }
 
-    public Test(Integer courseId, Integer weight) {
-        this.courseId = courseId;
+    public Test(Integer weight) {
         this.weight = weight;
     }
 

@@ -1,5 +1,8 @@
 package com.csv.csvreader.mark;
 
+import com.csv.csvreader.student.Student;
+import com.csv.csvreader.test.Test;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,24 +13,41 @@ public class Mark implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer testId;
-    private Integer studentId;
+
+    @ManyToOne
+    @JoinColumn(name = "test_id")
+    Test test;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    Student student;
+
+
     private String mark;
 
-    public Integer getTestId() {
-        return testId;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setTestId(Integer testId) {
-        this.testId = testId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getStudentId() {
-        return studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
     }
 
     public String getMark() {
@@ -38,10 +58,6 @@ public class Mark implements Serializable {
         this.mark = mark;
     }
 
-    public Mark(Integer studentId, String mark) {
-        this.studentId = studentId;
-        this.mark = mark;
-    }
 
     public Mark() {
     }

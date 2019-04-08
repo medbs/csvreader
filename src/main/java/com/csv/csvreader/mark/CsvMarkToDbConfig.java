@@ -16,12 +16,15 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
 
 @EnableBatchProcessing
 @Configuration
+
 public class CsvMarkToDbConfig {
 
     @Autowired
@@ -67,6 +70,7 @@ public class CsvMarkToDbConfig {
 
     // begin job info
     @Bean(name="csvMarkFileToDatabaseStep")
+    @DependsOn({"csvTestFileToDatabaseJob","csvStudentFileToDatabaseJob"})
     public Step csvFileToDatabaseStep() {
         return stepBuilderFactory.get("csvFileToDatabaseStep")
                 .<MarkDTO, MarkDTO>chunk(1)
@@ -77,6 +81,7 @@ public class CsvMarkToDbConfig {
     }
 
     @Bean(name="csvMarkFileToDatabaseJob")
+    @DependsOn({"csvTestFileToDatabaseJob","csvStudentFileToDatabaseJob"})
     Job csvFileToDatabaseJob(MarkJobNotificationListener listener) {
         return jobBuilderFactory.get("csvFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())
