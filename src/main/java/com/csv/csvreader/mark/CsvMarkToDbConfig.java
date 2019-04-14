@@ -70,9 +70,8 @@ public class CsvMarkToDbConfig {
 
     // begin job info
     @Bean(name="csvMarkFileToDatabaseStep")
-    @DependsOn({"csvTestFileToDatabaseJob","csvStudentFileToDatabaseJob"})
     public Step csvFileToDatabaseStep() {
-        return stepBuilderFactory.get("csvFileToDatabaseStep")
+        return stepBuilderFactory.get("csvMarkFileToDatabaseStep")
                 .<MarkDTO, MarkDTO>chunk(1)
                 .reader(csvMarkReader())
                 .processor(csvMarkProcessor())
@@ -81,9 +80,8 @@ public class CsvMarkToDbConfig {
     }
 
     @Bean(name="csvMarkFileToDatabaseJob")
-    @DependsOn({"csvTestFileToDatabaseJob","csvStudentFileToDatabaseJob"})
     Job csvFileToDatabaseJob(MarkJobNotificationListener listener) {
-        return jobBuilderFactory.get("csvFileToDatabaseJob")
+        return jobBuilderFactory.get("csvMarkFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(csvFileToDatabaseStep())

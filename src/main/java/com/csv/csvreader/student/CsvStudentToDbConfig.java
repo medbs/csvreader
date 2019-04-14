@@ -71,7 +71,7 @@ public class CsvStudentToDbConfig {
     // begin job info
     @Bean(name="csvStudentFileToDatabaseStep")
     public Step csvFileToDatabaseStep() {
-        return stepBuilderFactory.get("csvFileToDatabaseStep")
+        return stepBuilderFactory.get("csvStudentFileToDatabaseStep")
                 .<StudentDTO, StudentDTO>chunk(1)
                 .reader(csvMarkReader())
                 .processor(csvStudentProcessor())

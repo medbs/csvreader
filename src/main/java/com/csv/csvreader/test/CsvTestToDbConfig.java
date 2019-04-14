@@ -71,7 +71,7 @@ public class CsvTestToDbConfig {
     // begin job info
     @Bean(name="csvTestFileToDatabaseStep")
     public Step csvFileToDatabaseStep() {
-        return stepBuilderFactory.get("csvFileToDatabaseStep")
+        return stepBuilderFactory.get("csvTestFileToDatabaseStep")
                 .<TestDTO, TestDTO>chunk(1)
                 .reader(csvTestReader())
                 .processor(csvTestProcessor())
@@ -80,8 +80,9 @@ public class CsvTestToDbConfig {
     }
 
     @Bean(name="csvTestFileToDatabaseJob")
+//    @Order(4)
     Job csvFileToDatabaseJob(TestJobNotificationListener listener) {
-        return jobBuilderFactory.get("csvFileToDatabaseJob")
+        return jobBuilderFactory.get("csvTestFileToDatabaseJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(csvFileToDatabaseStep())
